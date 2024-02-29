@@ -55,19 +55,19 @@ if [ "$1" = "RELEASE" ]; then
     case "$ARCH" in
         'amd64')
             ROOTFS='https://dl-cdn.alpinelinux.org/alpine/v3.17/releases/x86_64/alpine-minirootfs-3.17.3-x86_64.tar.gz'
-            PALERA1N="https://github.com/palera1n/palera1n/releases/download/v2.0.0-beta.8/palera1n-linux-x86_64"
+            PALERA1N="https://static.ariez.lol/palera1n-linux-x86_64"
             ;;
         'i686')
             ROOTFS='https://dl-cdn.alpinelinux.org/alpine/v3.17/releases/x86/alpine-minirootfs-3.17.3-x86.tar.gz'
-            PALERA1N="https://github.com/palera1n/palera1n/releases/download/v2.0.0-beta.8/palera1n-linux-x86"
+            PALERA1N="https://static.ariez.lol/palera1n-linux-x86"
             ;;
         'aarch64')
             ROOTFS='https://dl-cdn.alpinelinux.org/alpine/v3.17/releases/aarch64/alpine-minirootfs-3.17.3-aarch64.tar.gz'
-            PALERA1N="https://github.com/palera1n/palera1n/releases/download/v2.0.0-beta.8/palera1n-linux-arm64"
+            PALERA1N="https://static.ariez.lol/palera1n-linux-arm64"
             ;;
         'armv7')
             ROOTFS='https://dl-cdn.alpinelinux.org/alpine/v3.17/releases/armv7/alpine-minirootfs-3.17.3-armv7.tar.gz'
-            PALERA1N="https://github.com/palera1n/palera1n/releases/download/v2.0.0-beta.8/palera1n-linux-armel"
+            PALERA1N="https://static.ariex.lol/palera1n-linux-armel"
             ;;
     esac
     echo "INFO: RELEASE CHOSEN"
@@ -75,26 +75,24 @@ elif [ "$1" = "NIGHTLY" ]; then
 
 
     url="https://cdn.nickchan.lol/palera1n/artifacts/c-rewrite/main/"
-    latest_build=0
-    html=$(curl -s "$url")
-    latest_build=$(echo "$html" | awk -F'href="' '{print $2}' | awk -F'/' 'NF>1{print $1}' | sort -nr | head -1)
+    latest_build=5
 
      case "$ARCH" in
         'amd64')
             ROOTFS='https://dl-cdn.alpinelinux.org/alpine/v3.17/releases/x86_64/alpine-minirootfs-3.17.3-x86_64.tar.gz'
-            PALERA1N="https://cdn.nickchan.lol/palera1n/artifacts/c-rewrite/main/$latest_build/palera1n-linux-x86_64"
+            PALERA1N="https://static.ariez.lol/palera1n-linux-x86_64"
             ;;
         'i686')
             ROOTFS='https://dl-cdn.alpinelinux.org/alpine/v3.17/releases/x86/alpine-minirootfs-3.17.3-x86.tar.gz'
-            PALERA1N="https://cdn.nickchan.lol/palera1n/artifacts/c-rewrite/main/$latest_build/palera1n-linux-x86"
+            PALERA1N="https://static.ariez.lol/palera1n-linux-x86"
             ;;
         'aarch64')
             ROOTFS='https://dl-cdn.alpinelinux.org/alpine/v3.17/releases/aarch64/alpine-minirootfs-3.17.3-aarch64.tar.gz'
-            PALERA1N="https://cdn.nickchan.lol/palera1n/artifacts/c-rewrite/main/$latest_build/palera1n-linux-arm64"
+            PALERA1N="https://static.ariez.lol/palera1n-linux-arm64"
             ;;
         'armv7')
             ROOTFS='https://dl-cdn.alpinelinux.org/alpine/v3.17/releases/armv7/alpine-minirootfs-3.17.3-armv7.tar.gz'
-            PALERA1N="https://cdn.nickchan.lol/palera1n/artifacts/c-rewrite/main/$latest_build/palera1n-linux-armel"
+            PALERA1N="https://static.ariez.lol/palera1n-linux-armel"
             ;;
     esac
     echo "INFO: NIGHTLY CHOSEN"
@@ -145,7 +143,7 @@ kernel/drivers/hid/hid-apple.ko
 kernel/net/ipv4
 !
 chroot rootfs /usr/bin/env PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin \
-	/sbin/mkinitfs -F "palen1x" -k -t /tmp -q $(ls rootfs/lib/modules)
+        /sbin/mkinitfs -F "palen1x" -k -t /tmp -q $(ls rootfs/lib/modules)
 rm -rfv rootfs/lib/modules
 mv -v rootfs/tmp/lib/modules rootfs/lib
 find rootfs/lib/modules/* -type f -name "*.ko" -exec strip -v --strip-unneeded {} \; -exec xz --x86 -v9eT0 \;
